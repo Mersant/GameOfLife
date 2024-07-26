@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <format>
 
-inline uint16_t generateMask(uint16_t mask, uint8_t col) {
+inline uint16_t GenerateMask(uint16_t mask, uint8_t col) {
     mask <<= (14 - col);
     if (col == 15) {
         mask |= 0x8000U;
@@ -31,9 +31,9 @@ void Generation(uint16_t gameMap[16]) {
         uint16_t currentRow = gameMap[row];
         uint16_t belowRow = row == 15 ? gameMap[0] : gameMap[row + 1];
         for (int col = 0; col < 15; col++) {
-            uint16_t yMask = generateMask(0b111, col);
+            uint16_t yMask = GenerateMask(0b111, col);
             // Exclude the current cell
-            uint16_t xMask = generateMask(0b101, col);
+            uint16_t xMask = GenerateMask(0b101, col);
 
             uint8_t neighbors = std::popcount(uint16_t(aboveRow & yMask)) +
                                 std::popcount(uint16_t(belowRow & yMask)) +
